@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { getStudentsFromDb, getCampusesFromDb } from './../store';
 
+import Navbar from './Navbar';
 import AllCampuses from './All-Campuses';
 import AllStudents from './All-Students';
 
@@ -17,6 +18,7 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <Navbar />
         <Switch>
           <Route exact path="/campuses" component={AllCampuses} />
           <Route exact path="/students" component={AllStudents} />
