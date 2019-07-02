@@ -6,6 +6,7 @@ import { getStudentsFromDb, getCampusesFromDb } from './../store';
 import Navbar from './Navbar';
 import AllCampuses from './All-Campuses';
 import AllStudents from './All-Students';
+import SingleCampus from './SingleCampus';
 
 class Main extends Component {
   // constructor(props) {
@@ -22,6 +23,7 @@ class Main extends Component {
         <Switch>
           <Route exact path="/campuses" component={AllCampuses} />
           <Route exact path="/students" component={AllStudents} />
+          <Route path="/campuses/:campusId" component={SingleCampus} />
           <Redirect to="/campuses" />
         </Switch>
       </div>
