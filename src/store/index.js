@@ -9,6 +9,8 @@ const store = createStore(
   applyMiddleware(thunkMiddleware, logger)
 );
 
-export * from './reducers/studentReducers';
-export * from './reducers/campusReducers';
+export * from './reducers/studentsReducer';
+export * from './reducers/campusesReducer';
+export * from './reducers/currentCampusReducer';
+export * from './reducers/currentStudentReducer';
 export default store;
