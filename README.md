@@ -8,30 +8,31 @@ The requirements below are broken into separate **tiers**, which model the way w
 
 #### Backend
 
-- [ ] Write a `campuses` model with the following information:
-  - [ ] name - not empty or null
-  - [ ] imageUrl - with a default value
-  - [ ] address - not empty or null
-  - [ ] description - extremely large text
-- [ ] Write a `students` model with the following information:
-  - [ ] firstName - not empty or null
-  - [ ] lastName - not empty or null
-  - [ ] email - not empty or null; must be a valid email
-  - [ ] imageUrl - with a default value
-  - [ ] gpa - decimal between 0.0 and 4.0
-- [ ] Students may be associated with at most one campus. Likewise, campuses may be associated with many students
+- [x] Write a `campuses` model with the following information:
+  - [x] name - not empty or null
+  - [x] imageUrl - with a default value
+  - [x] address - not empty or null
+  - [x] description - extremely large text
+- [x] Write a `students` model with the following information:
+  - [x] firstName - not empty or null
+  - [x] lastName - not empty or null
+  - [x] email - not empty or null; must be a valid email
+  - [x] imageUrl - with a default value
+  - [x] gpa - decimal between 0.0 and 4.0
+- [x] Students may be associated with at most one campus. Likewise, campuses may be associated with many students
 
-- [ ] Write a route to serve up all students
-- [ ] Write a route to serve up all campuses
+- [x] Write a route to serve up all students
+- [x] Write a route to serve up all campuses
 
 #### Frontend
-- [ ] Write a campuses sub-reducer to manage campuses in your Redux store
-- [ ] Write a students sub-reducer to manage students in your Redux store
-- [ ] Write a component to display a list of all campuses (just their names and images)
-- [ ] Write a component to display a list of all students (just their names)
-- [ ] Display the all-campuses component when the url matches `/campuses`
-- [ ] Display the all-students component when the url matches `/students`
-- [ ] Add links to the navbar that can be used to navigate to the all-campuses view and the all-students view
+
+- [x] Write a campuses sub-reducer to manage campuses in your Redux store
+- [x] Write a students sub-reducer to manage students in your Redux store
+- [x] Write a component to display a list of all campuses (just their names and images)
+- [x] Write a component to display a list of all students (just their names)
+- [x] Display the all-campuses component when the url matches `/campuses`
+- [x] Display the all-students component when the url matches `/students`
+- [x] Add links to the navbar that can be used to navigate to the all-campuses view and the all-students view
 
 Congrats! You have completed your first vertical slice! Make sure to `commit -m "Feature: Get All Campuses and Students"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
@@ -47,6 +48,7 @@ Congrats! You have completed your first vertical slice! Make sure to `commit -m 
 - [ ] Write a route to serve up a single student (based on their id), _including that student's campus_
 
 #### Frontend
+
 - [ ] Write a component to display a single campus with the following information:
   - [ ] The campus's name, image, address and description
   - [ ] A list of the names of all students in that campus (or a helpful message if it doesn't have any students)
@@ -64,7 +66,6 @@ Congrats! You have completed your first vertical slice! Make sure to `commit -m 
 
 Congrats! You have completed your second vertical slice! Make sure to `commit -m "Feature: Get Single Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
-
 </details>
 
 ### Tier 3: Adding a Campus and Adding a Student (12/57)
@@ -81,6 +82,7 @@ Congrats! You have completed your second vertical slice! Make sure to `commit -m
 - [ ] Write a component to display a form for adding a new campus that contains inputs for _at least_ the name and address.
 - [ ] Display this component EITHER as part of the all-campuses view, or as its own view
 - [ ] Submitting the form with a valid name/address should:
+
   - [ ] Make an AJAX request that causes the new campus to be persisted in the database
   - [ ] Add the new campus to the list of campuses without needing to refresh the page
 
@@ -91,7 +93,6 @@ Congrats! You have completed your second vertical slice! Make sure to `commit -m
   - [ ] Add the new student to the list of students without needing to refresh the page
 
 Congrats! You have completed your third vertical slice! Make sure to `commit -m "Feature: Add Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
-
 
 </details>
 
@@ -108,6 +109,7 @@ Congrats! You have completed your third vertical slice! Make sure to `commit -m 
 
 - [ ] In the all-campuses view, include an `X` button next to each campus
 - [ ] Clicking the `X` button should:
+
   - [ ] Make an AJAX request that causes that campus to be removed from database
   - [ ] Remove the campus from the list of campuses without needing to refresh the page
 
@@ -117,7 +119,6 @@ Congrats! You have completed your third vertical slice! Make sure to `commit -m 
   - [ ] Remove the student from the list of students without needing to refresh the page
 
 Congrats! You have completed your fourth vertical slice! Make sure to `commit -m "Feature: Remove Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
-
 
 </details>
 
@@ -148,6 +149,7 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
 - [ ] Write a component to display a form updating _at least_ a campus's name and address
 - [ ] Display this component as part of the single-campus view
 - Submitting the form with a valid name/address should:
+
   - [ ] Make an AJAX request that causes that campus to be updated in the database
   - [ ] Update the campus in the current view without needing to refresh the page
 

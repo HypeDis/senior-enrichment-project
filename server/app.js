@@ -11,10 +11,10 @@ app.use(express.static(path.join(__dirname, './..', 'public')));
 
 app.use(express.static(path.join(__dirname, './..', 'public/img')));
 
-app.get('/', (req, res, next) => {
+app.use('/api', apiRoutes);
+app.get('/*', (req, res, next) => {
   res.sendFile('index.html');
 });
-app.use('/api', apiRoutes);
 
 app.use((err, req, res, next) => {
   res.send(err);
