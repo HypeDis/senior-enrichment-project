@@ -44,8 +44,8 @@ Congrats! You have completed your first vertical slice! Make sure to `commit -m 
 
 #### Backend
 
-- [ ] Write a route to serve up a single campus (based on its id), _including that campuses' students_
-- [ ] Write a route to serve up a single student (based on their id), _including that student's campus_
+- [x] Write a route to serve up a single campus (based on its id), _including that campuses' students_
+- [x] Write a route to serve up a single student (based on their id), _including that student's campus_
 
 #### Frontend
 
