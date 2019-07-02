@@ -1,0 +1,42 @@
+import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { getStudentsFromDb, getCampusesFromDb } from './../store';
+
+import AllCampuses from './All-Campuses';
+import AllStudents from './All-Students';
+
+class Main extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+  componentDidMount() {
+    this.props.getCampuses();
+    this.props.getStudents();
+  }
+  render() {
+    return (
+      <div>
+        <Switch>
+          <Route exact path="/campuses" component={AllCampuses} />
+          <Route exact path="/students" component={AllStudents} />
+          <Redirect to="/campuses" />
+        </Switch>
+      </div>
+    );
+  }
+}
+
+const mapDispatch = dispatch => ({
+  getCampuses: () => {
+    dispatch(getCampusesFromDb());
+  },
+  getStudents: () => {
+    dispatch(getStudentsFromDb());
+  },
+});
+
+export default connect(
+  null,
+  mapDispatch
+)(Main);
