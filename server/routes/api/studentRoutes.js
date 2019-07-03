@@ -3,14 +3,16 @@ const router = express.Router();
 
 const { Student, Campus } = require('./../../db');
 
-// /api/students
+// GET to /api/students
+// get all students
 router.get('/', (req, res, next) => {
   Student.findAll()
     .then(students => res.send(students))
     .catch(next);
 });
 
-// /api/students/:studentId
+// GET to /api/students/:studentId
+// get a student and their campus
 router.get('/:studentId', (req, res, next) => {
   const studentId = req.params.studentId;
   Student.findByPk(studentId, { include: [Campus] })
@@ -20,4 +22,14 @@ router.get('/:studentId', (req, res, next) => {
     .catch(next);
 });
 
+// POST to /api/students
+router.post('/', (req, res, next) => {
+  const newStudent = req.body;
+  Student.create(newStudent)
+    .then(student => res.send({ message: 'success', student }))
+    .catch(e => {
+      res.send({ error: e });
+      next(e);
+    });
+});
 module.exports = router;
