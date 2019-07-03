@@ -26,7 +26,15 @@ export const getCurrentCampusFromDb = campusId => {
 };
 
 // reducer
-const currentCampusReducer = (state = {}, action) => {
+const initialState = {
+  name: '',
+  address: '',
+  description: '',
+  imageUrl: 'defaultCampus.jpg',
+  students: [],
+};
+
+const currentCampusReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_CURRENT_CAMPUS:
       return action.campus;

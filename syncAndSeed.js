@@ -27,9 +27,9 @@ db.sync({ force: true })
   .then(([uw, nyu, john, sally, bob, lucy]) => {
     return Promise.all([
       john.setCampus(uw),
-      sally.setCampus(nyu),
+      sally.setCampus(uw),
       bob.setCampus(uw),
-      lucy.setCampus(uw),
+      lucy.setCampus(),
     ]);
   })
   .then(() => {

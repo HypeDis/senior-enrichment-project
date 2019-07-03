@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getCurrentCampusFromDb } from './../store';
 
 class SingleCampus extends Component {
@@ -13,21 +14,38 @@ class SingleCampus extends Component {
     } = this.props.match;
 
     this.props.getCampus(campusId);
-    // console.log(this.props.currentCampus);
+  }
+
+  renderStudents(students) {
+    return students.length ? (
+      <ul>
+        {students.map(student => (
+          <li key={student.id}>
+            <Link to={`/students/${student.id}`}>
+              {`${student.firstName} ${student.lastName}`}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>Nobody wants to go here</p>
+    );
   }
 
   render() {
-    const {
-      params: { campusId },
-    } = this.props.match;
+    const { currentCampus } = this.props;
     return (
       <div>
-        <h1>Single Campus {campusId}</h1>
+        <img src={currentCampus.imageUrl} alt="campus image" />
+        <p>Name: {currentCampus.name}</p>
+        <p>Address: {currentCampus.address}</p>
+        <p>Description: {currentCampus.description}</p>
+        <h3>Students:</h3>
+        {this.renderStudents(currentCampus.students)}
       </div>
     );
   }
 }
-
 const mapState = state => ({
   currentCampus: state.currentCampus,
 });

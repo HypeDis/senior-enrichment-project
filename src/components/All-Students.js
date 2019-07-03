@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 const AllStudents = props => {
   return (
     <div>
       <ul>
         {props.students.map(student => (
-          <li key={student.id}>{`${student.firstName} ${student.lastName}`}</li>
+          <li key={student.id}>
+            <Link to={`/students/${student.id}`}>
+              {`${student.firstName} ${student.lastName}`}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

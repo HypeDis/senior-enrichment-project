@@ -26,7 +26,15 @@ export const getCurrentStudentFromDb = studentId => {
 };
 
 // reducer
-const currentStudentReducer = (state = {}, action) => {
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  gpa: 0,
+  imageUrl: '',
+  campus: {},
+};
+const currentStudentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_CURRENT_STUDENT:
       return action.student;

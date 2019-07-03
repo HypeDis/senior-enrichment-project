@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import AllCampuses from './All-Campuses';
 import AllStudents from './All-Students';
 import SingleCampus from './SingleCampus';
+import SingleStudent from './SingleStudent';
 
 class Main extends Component {
   // constructor(props) {
@@ -24,6 +25,7 @@ class Main extends Component {
           <Route exact path="/campuses" component={AllCampuses} />
           <Route exact path="/students" component={AllStudents} />
           <Route path="/campuses/:campusId" component={SingleCampus} />
+          <Route path="/students/:studentId" component={SingleStudent} />
           <Redirect to="/campuses" />
         </Switch>
       </div>
