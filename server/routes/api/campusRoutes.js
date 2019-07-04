@@ -39,4 +39,20 @@ router.post('/', (req, res, next) => {
     });
 });
 
+router.delete('/:campusId', (req, res, next) => {
+  const id = req.params.campusId;
+  Campus.destroy({ where: { id } })
+    .then(resp => {
+      if (resp === 0) {
+        console.log('campus not found');
+        return res.send({ error: 'campus not found' });
+      }
+      res.send({ message: 'delete campus success', resp });
+    })
+    .catch(e => {
+      res.send({ error: e });
+      next(e);
+    });
+});
+
 module.exports = router;

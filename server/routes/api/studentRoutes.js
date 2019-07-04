@@ -33,3 +33,18 @@ router.post('/', (req, res, next) => {
     });
 });
 module.exports = router;
+
+router.delete('/:studentId', (req, res, next) => {
+  const id = req.params.studentId;
+  Student.destroy({ where: { id } })
+    .then(resp => {
+      if (resp === 0) {
+        return res.send({ error: 'student not found' });
+      }
+      res.send({ message: 'delete student success' });
+    })
+    .catch(e => {
+      res.send({ error: e });
+      next(e);
+    });
+});
