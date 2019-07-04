@@ -9,19 +9,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
-app.use(express.static(path.join(__dirname, './..', 'public')));
+const publicPath = path.join(__dirname, './..', 'public');
+app.use(express.static(publicPath));
 
-app.use(express.static(path.join(__dirname, './..', 'public/img')));
+app.use(express.static(path.join(publicPath, './img')));
 
 app.use('/api', apiRoutes);
 
-app.get('/campuses', (req, res, next) => {
-  res.sendFile('index.html');
+app.use('/campuses', (req, res) => {
+  console.log('rerouting');
+  res.sendFile(publicPath + '/index.html');
 });
 
-app.get('/*', (req, res, next) => {
-  res.sendFile('index.html');
+app.use('*', (req, res) => {
+  console.log('rerouting');
+  res.sendFile(publicPath + '/index.html');
 });
+
+// app.get('/*', (req, res, next) => {
+//   res.sendFile('index.html');
+// });
 
 app.use((err, req, res, next) => {
   res.send(err);

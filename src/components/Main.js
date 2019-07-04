@@ -8,6 +8,8 @@ import AllCampuses from './All-Campuses';
 import AllStudents from './All-Students';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
+import CampusForm from './CampusForm';
+import StudentForm from './StudentForm';
 
 class Main extends Component {
   // constructor(props) {
@@ -24,6 +26,9 @@ class Main extends Component {
         <Switch>
           <Route exact path="/campuses" component={AllCampuses} />
           <Route exact path="/students" component={AllStudents} />
+          <Route exact path="/campuses/new" component={CampusForm} />
+          <Route exact path="/campuses/update" component={CampusForm} />
+          <Route path="/students/new" component={StudentForm} />
           <Route path="/campuses/:campusId" component={SingleCampus} />
           <Route path="/students/:studentId" component={SingleStudent} />
           <Redirect to="/campuses" />

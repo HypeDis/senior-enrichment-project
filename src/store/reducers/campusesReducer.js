@@ -32,7 +32,10 @@ export const getCampusesFromDb = () => {
           dispatch(gotCampuses(campuses));
         })
         // need to make error reducer
-        .catch(e => dispatch(gotCampusesError(e)))
+        .catch(e => {
+          console.error('getCampusFromdb Error', e);
+          dispatch(gotCampusesError(e));
+        })
     );
   };
 };

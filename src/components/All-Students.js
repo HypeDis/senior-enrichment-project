@@ -13,6 +13,7 @@ const AllStudents = props => {
           </li>
         ))}
       </ul>
+      <Link to="/students/new">Add New Student</Link>
     </div>
   );
 };

@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { getCurrentCampusFromDb } from './../store';
 
 class SingleCampus extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const {
       params: { campusId },
@@ -40,12 +36,14 @@ class SingleCampus extends Component {
         <p>Name: {currentCampus.name}</p>
         <p>Address: {currentCampus.address}</p>
         <p>Description: {currentCampus.description}</p>
+        <Link to="/campuses/update">Update Info</Link>
         <h3>Students:</h3>
         {this.renderStudents(currentCampus.students)}
       </div>
     );
   }
 }
+
 const mapState = state => ({
   currentCampus: state.currentCampus,
 });

@@ -30,4 +30,14 @@ const Student = db.define('student', {
   },
 });
 
+// capitalize first and last names before create
+Student.beforeCreate(student => {
+  student.firstName = capitalizeFirstLetter(student.firstName);
+  student.lastName = capitalizeFirstLetter(student.lastName);
+});
+
+const capitalizeFirstLetter = word => {
+  return word[0].toUpperCase() + word.slice(1);
+};
+
 module.exports = Student;

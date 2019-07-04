@@ -2,10 +2,16 @@ import axios from 'axios';
 
 // action constants
 const GOT_CURRENT_CAMPUS = 'GOT_CURRENT_CAMPUS';
+const RESET_CURRENT_CAMPUS = 'RESET_CURRENT_CAMPUS';
 
 // action creators
 export const gotCurrentCampus = campus => {
   const action = { type: GOT_CURRENT_CAMPUS, campus };
+  return action;
+};
+
+export const resetCurrentCampus = () => {
+  const action = { type: RESET_CURRENT_CAMPUS };
   return action;
 };
 
@@ -38,6 +44,8 @@ const currentCampusReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_CURRENT_CAMPUS:
       return action.campus;
+    case RESET_CURRENT_CAMPUS:
+      return { ...initialState };
     default:
       return state;
   }

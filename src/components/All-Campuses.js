@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { resetCurrentCampus } from './../store';
+
 const AllCampuses = props => {
+  props.resetCampus();
   return (
     <div>
       {props.campuses.map(campus => (
@@ -17,6 +20,9 @@ const AllCampuses = props => {
           <p>{campus.name}</p>
         </li>
       ))}
+      <div>
+        <Link to="/campuses/new">Add Campus</Link>
+      </div>
     </div>
   );
 };
@@ -25,4 +31,13 @@ const mapState = state => ({
   campuses: state.campuses,
 });
 
-export default connect(mapState)(AllCampuses);
+const mapDispatch = dispatch => ({
+  resetCampus: () => {
+    dispatch(resetCurrentCampus());
+  },
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(AllCampuses);
