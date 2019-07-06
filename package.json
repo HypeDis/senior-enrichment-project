@@ -34,7 +34,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "nodemon ./server/index.js",
     "build-dev": "webpack -w",
-    "build": "webpack",
+    "build": "webpack && npm run seed",
     "start-dev": "npm run build-dev & npm run start-server",
     "seed": "node syncAndSeed.js"
   },
