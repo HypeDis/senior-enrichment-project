@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import { resetCurrentStudent } from './../store';
 const AllStudents = props => {
+  props.resetStudent();
   return (
     <div>
       <ul>
@@ -27,5 +29,7 @@ const AllStudents = props => {
 const mapState = state => ({
   students: state.students,
 });
-
+const mapDispatch = dispatch => ({
+  resetStudent: () => dispatch(resetCurrentStudent()),
+});
 export default connect(mapState)(AllStudents);
