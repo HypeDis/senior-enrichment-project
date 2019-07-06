@@ -30,7 +30,9 @@ const mapState = state => ({
   students: state.students,
 });
 const mapDispatch = dispatch => ({
-  resetStudent: () => dispatch(resetCurrentStudent()),
+  resetStudent: () => {
+    dispatch(resetCurrentStudent());
+  },
 });
 export default connect(
   mapState,
