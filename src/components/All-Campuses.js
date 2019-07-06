@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { resetCurrentCampus } from './../store';
+import DeleteButton from './DeleteButton';
 
 const AllCampuses = props => {
   props.resetCampus();
@@ -17,7 +18,12 @@ const AllCampuses = props => {
               width="50"
             />
           </Link>
-          <p>{campus.name}</p>
+          <p>
+            {campus.name}
+            <span>
+              <DeleteButton location={props.location} id={campus.id} />
+            </span>
+          </p>
         </li>
       ))}
       <div>
