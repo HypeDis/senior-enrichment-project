@@ -12,7 +12,6 @@ const CampusForm = props => {
   };
 
   const createCampus = () => {
-    // BUG: empty strings not triggering allownull
     const newCampus = {
       name: values.name,
       address: values.address,
