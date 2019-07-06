@@ -32,4 +32,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   resetStudent: () => dispatch(resetCurrentStudent()),
 });
-export default connect(mapState)(AllStudents);
+export default connect(
+  mapState,
+  mapDispatch
+)(AllStudents);
