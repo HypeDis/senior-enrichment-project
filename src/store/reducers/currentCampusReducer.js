@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setLoading } from './../index';
 
 // action constants
 const GOT_CURRENT_CAMPUS = 'GOT_CURRENT_CAMPUS';
@@ -23,6 +24,7 @@ export const getCurrentCampusFromDb = campusId => {
       .then(response => {
         const campus = response.data;
         dispatch(gotCurrentCampus(campus));
+        dispatch(setLoading(false));
       })
       .catch(e => {
         //write error handler later

@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
-import { resetCurrentStudent } from './../store';
+import { resetCurrentStudent, setLoading, getStudentsFromDb } from './../store';
 import { GRID, CARD } from './../styles';
 const AllStudents = props => {
-  props.resetStudent();
-  return (
+  useEffect(() => {
+    props.resetStudent();
+    props.setLoading(true);
+    props.getStudentsFromDb();
+  }, []);
+
+  return props.isLoading ? (
+    <div uk-spinner="ratio:3" />
+  ) : (
     <div className="uk-container-small">
       <ul className={GRID} uk-grid="true">
         {props.students.map(student => (
@@ -35,10 +42,17 @@ const AllStudents = props => {
 
 const mapState = state => ({
   students: state.students,
+  isLoading: state.isLoading,
 });
 const mapDispatch = dispatch => ({
   resetStudent: () => {
     dispatch(resetCurrentStudent());
+  },
+  setLoading: loadStatus => {
+    dispatch(setLoading(loadStatus));
+  },
+  getStudentsFromDb: () => {
+    dispatch(getStudentsFromDb());
   },
 });
 export default connect(

@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { resetCurrentCampus } from './../store';
+import { resetCurrentCampus, setLoading, getCampusesFromDb } from './../store';
 import DeleteButton from './DeleteButton';
 import { GRID, CARD } from './../styles';
 
 const AllCampuses = props => {
-  props.resetCampus();
-  return (
+  useEffect(() => {
+    props.resetCampus();
+    props.setLoading(true);
+    props.getCampusesFromDb();
+  }, []);
+  return props.isLoading ? (
+    <div uk-spinner="ratio:3" />
+  ) : (
     <div className="uk-container-small">
       <ul className={GRID} uk-grid="true">
         {props.campuses.map(campus => (
@@ -36,11 +42,18 @@ const AllCampuses = props => {
 
 const mapState = state => ({
   campuses: state.campuses,
+  isLoading: state.isLoading,
 });
 
 const mapDispatch = dispatch => ({
   resetCampus: () => {
     dispatch(resetCurrentCampus());
+  },
+  setLoading: loadStatus => {
+    dispatch(setLoading(loadStatus));
+  },
+  getCampusesFromDb: () => {
+    dispatch(getCampusesFromDb());
   },
 });
 

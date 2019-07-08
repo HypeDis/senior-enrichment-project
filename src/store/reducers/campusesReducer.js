@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setLoading } from './../index';
 
 // action constants
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
@@ -30,6 +31,7 @@ export const getCampusesFromDb = () => {
         .then(response => {
           const campuses = response.data;
           dispatch(gotCampuses(campuses));
+          dispatch(setLoading(false));
         })
         // need to make error reducer
         .catch(e => {

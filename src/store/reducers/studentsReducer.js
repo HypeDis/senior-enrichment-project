@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setLoading } from './loadingReducer';
 
 // action constants
 const GOT_STUDENTS = 'GOT_STUDENTS';
@@ -22,6 +23,7 @@ export const getStudentsFromDb = () => {
       .get('/api/students')
       .then(response => {
         dispatch(gotStudents(response.data));
+        dispatch(setLoading(false));
       })
       .catch(e => {
         dispatch(gotStudentsError(e));

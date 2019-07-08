@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCurrentCampusFromDb } from './../store';
+import { getCurrentCampusFromDb, setLoading } from './../store';
 
-class SingleCampus extends Component {
-  componentDidMount() {
+const SingleCampus = props => {
+  useEffect(() => {
     const {
       params: { campusId },
-    } = this.props.match;
+    } = props.match;
+    props.setLoading(true);
+    props.getCampus(campusId);
+  }, []);
 
-    this.props.getCampus(campusId);
-  }
-
-  renderStudents(students) {
+  const renderStudents = students => {
     return students.length ? (
       <ul>
         {students.map(student => (
@@ -26,31 +26,34 @@ class SingleCampus extends Component {
     ) : (
       <p>Nobody wants to go here</p>
     );
-  }
+  };
 
-  render() {
-    const { currentCampus } = this.props;
-    return (
-      <div>
-        <img src={currentCampus.imageUrl} alt="campus image" />
-        <p>Name: {currentCampus.name}</p>
-        <p>Address: {currentCampus.address}</p>
-        <p>Description: {currentCampus.description}</p>
-        <Link to="/campuses/update">Update Info</Link>
-        <h3>Students:</h3>
-        {this.renderStudents(currentCampus.students)}
-      </div>
-    );
-  }
-}
+  return props.isLoading ? (
+    <div uk-spinner />
+  ) : (
+    <div>
+      <img src={props.currentCampus.imageUrl} alt="campus image" />
+      <p>Name: {props.currentCampus.name}</p>
+      <p>Address: {props.currentCampus.address}</p>
+      <p>Description: {props.currentCampus.description}</p>
+      <Link to="/campuses/update">Update Info</Link>
+      <h3>Students:</h3>
+      {renderStudents(props.currentCampus.students)}
+    </div>
+  );
+};
 
 const mapState = state => ({
   currentCampus: state.currentCampus,
+  isLoading: state.isLoading,
 });
 
 const mapDispatch = dispatch => ({
   getCampus: campusId => {
     dispatch(getCurrentCampusFromDb(campusId));
+  },
+  setLoading: loadStatus => {
+    dispatch(setLoading(loadStatus));
   },
 });
 

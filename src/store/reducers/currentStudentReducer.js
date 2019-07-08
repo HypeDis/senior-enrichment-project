@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { setLoading } from './../index';
 // action constants
 const GOT_CURRENT_STUDENT = 'GOT_CURRENT_STUDENT';
 const RESET_CURRENT_STUDENT = 'RESET_CURRENT_STUDENT';
@@ -23,6 +23,7 @@ export const getCurrentStudentFromDb = studentId => {
       .then(response => {
         const student = response.data;
         dispatch(gotCurrentStudent(student));
+        dispatch(setLoading(false));
       })
       .catch(e => {
         //write error handler later

@@ -16,8 +16,9 @@ class Main extends Component {
   //   super(props);
   // }
   componentDidMount() {
-    this.props.getCampuses();
-    this.props.getStudents();
+    // this.props.setLoading(true);
+    // this.props.getCampuses();
+    // this.props.getStudents();
   }
   render() {
     return (
@@ -44,6 +45,9 @@ const mapDispatch = dispatch => ({
   },
   getStudents: () => {
     dispatch(getStudentsFromDb());
+  },
+  setLoading: loadStatus => {
+    dispatch(setLoading(loadStatus));
   },
 });
 

@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getCurrentStudentFromDb } from './../store';
+import { getCurrentStudentFromDb, setLoading } from './../store';
 import { Link } from 'react-router-dom';
 
-class SingleStudent extends Component {
+const SingleStudent = props => {
   // constructor(props) {
   //   super(props);
   // }
 
-  componentDidMount() {
+  useEffect(() => {
     const {
       params: { studentId },
-    } = this.props.match;
+    } = props.match;
+    props.setLoading(true);
+    props.getStudent(studentId);
+  }, []);
 
-    this.props.getStudent(studentId);
-  }
-
-  componentWillUnmount() {
-    // clear the currentStudent from the store
-  }
-
-  renderCampusLink(student) {
+  const renderCampusLink = student => {
     // return student.campus ? (
     const link = student.campus ? (
       <Link to={`/campuses/${student.campus.id}`}>
@@ -34,29 +30,33 @@ class SingleStudent extends Component {
     // ) : (
     // <p>None</p>
     // );
-  }
+  };
 
-  render() {
-    const { currentStudent } = this.props;
-    return (
-      <div className="uk-child-width-1-2">
-        <img src={currentStudent.imageUrl} alt="student image" />
-        <p>Firstname: {currentStudent.firstName}</p>
-        <p>Lastname: {currentStudent.lastName}</p>
-        <p>Email: {currentStudent.email}</p>
-        <p>GPA: {currentStudent.gpa}</p>
-        {this.renderCampusLink(currentStudent)}
-      </div>
-    );
-  }
-}
+  return props.isLoading ? (
+    <div uk-spinner="true" />
+  ) : (
+    <div className="uk-child-width-1-2">
+      <img src={props.currentStudent.imageUrl} alt="student image" />
+      <p>Firstname: {props.currentStudent.firstName}</p>
+      <p>Lastname: {props.currentStudent.lastName}</p>
+      <p>Email: {props.currentStudent.email}</p>
+      <p>GPA: {props.currentStudent.gpa}</p>
+      {renderCampusLink(props.currentStudent)}
+    </div>
+  );
+};
+
 const mapState = state => ({
   currentStudent: state.currentStudent,
+  isLoading: state.isLoading,
 });
 
 const mapDispatch = dispatch => ({
   getStudent: studentId => {
     dispatch(getCurrentStudentFromDb(studentId));
+  },
+  setLoading: loadStatus => {
+    dispatch(setLoading(loadStatus));
   },
 });
 

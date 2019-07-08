@@ -7,7 +7,6 @@ const DeleteButton = props => {
   const id = props.id;
   const path = props.location.pathname.slice(1).trim();
   console.log(path);
-  console.log('delete button', props.location);
 
   const deleteItem = () => {
     axios
