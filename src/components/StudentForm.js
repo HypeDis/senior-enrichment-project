@@ -18,6 +18,7 @@ const StudentForm = props => {
       lastName: values.lastName,
       email: values.email,
       gpa: values.gpa,
+      campusId: values.campusId,
     };
     axios
       .post('/api/students', newStudent)
@@ -84,8 +85,23 @@ const StudentForm = props => {
         {renderInput('Last Name', 'lastName')}
         {renderInput('Email', 'email')}
         {renderInput('GPA', 'gpa')}
-
-        {/* make the text area collapsed on default */}
+        <div className="field">
+          <label>Campus</label>
+          <div className="student-select">
+            <select
+              name="campusId"
+              value={values.campusId}
+              onChange={handleChange}
+            >
+              <option value="">--None--</option>
+              {props.campuses.map(campus => (
+                <option key={campus.id} value={campus.id}>
+                  {campus.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="field">
           <button type="submit">Submit</button>
         </div>
@@ -94,7 +110,10 @@ const StudentForm = props => {
   );
 };
 
-const mapState = state => ({ currentStudent: state.currentStudent });
+const mapState = state => ({
+  currentStudent: state.currentStudent,
+  campuses: state.campuses,
+});
 const mapDispatch = dispatch => ({
   resetStudent: () => {
     dispatch(resetCurrentStudent());

@@ -39,7 +39,7 @@ class SingleStudent extends Component {
   render() {
     const { currentStudent } = this.props;
     return (
-      <div>
+      <div className="uk-child-width-1-2">
         <img src={currentStudent.imageUrl} alt="student image" />
         <p>Firstname: {currentStudent.firstName}</p>
         <p>Lastname: {currentStudent.lastName}</p>

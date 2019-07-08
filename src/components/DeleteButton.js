@@ -27,7 +27,24 @@ const DeleteButton = props => {
       .catch(e => console.error('delete error', e));
   };
 
-  return <button onClick={deleteItem}>X</button>;
+  return (
+    <div className="delete-btn-container">
+      <form
+        onSubmit={e => {
+          e.stopPropagation();
+          e.preventDefault();
+          deleteItem();
+        }}
+      >
+        <button
+          type="submit"
+          className="uk-close-large"
+          onClick={e => e.stopPropagation()}
+          uk-close="true"
+        />
+      </form>
+    </div>
+  );
 };
 
 const mapDispatch = dispatch => ({

@@ -3,31 +3,32 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { resetCurrentCampus } from './../store';
 import DeleteButton from './DeleteButton';
+import { GRID, CARD } from './../styles';
 
 const AllCampuses = props => {
   props.resetCampus();
   return (
-    <div>
-      {props.campuses.map(campus => (
-        <li key={campus.id}>
-          <Link to={`/campuses/${campus.id}`}>
-            <img
-              src={campus.imageUrl}
-              alt="campus image"
-              height="50"
-              width="50"
-            />
-          </Link>
-          <p>
-            {campus.name}
-            <span>
-              <DeleteButton location={props.location} id={campus.id} />
-            </span>
-          </p>
-        </li>
-      ))}
+    <div className="uk-container-small">
+      <ul className={GRID} uk-grid="true">
+        {props.campuses.map(campus => (
+          <li key={campus.id}>
+            <Link to={`/campuses/${campus.id}`} className="uk-thumbnail">
+              <div className={CARD}>
+                <div className="card-info">
+                  <img src={campus.imageUrl} alt="campus image" />
+                  <div className="uk-card-footer">{campus.name}</div>
+                </div>
+
+                <DeleteButton location={props.location} id={campus.id} />
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
       <div>
-        <Link to="/campuses/new">Add Campus</Link>
+        <Link to="/campuses/new">
+          <button className="uk-button">Add Campus</button>
+        </Link>
       </div>
     </div>
   );

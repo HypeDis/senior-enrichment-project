@@ -21,7 +21,7 @@ class Main extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="uk-container">
         <Navbar />
         <Switch>
           <Route exact path="/campuses" component={AllCampuses} />
