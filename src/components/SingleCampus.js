@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCurrentCampusFromDb, setLoading } from './../store';
+import Loading from './Loading';
 
 const SingleCampus = props => {
   useEffect(() => {
@@ -29,7 +30,7 @@ const SingleCampus = props => {
   };
 
   return props.isLoading ? (
-    <div uk-spinner />
+    <Loading />
   ) : (
     <div>
       <img src={props.currentCampus.imageUrl} alt="campus image" />

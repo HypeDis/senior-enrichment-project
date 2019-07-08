@@ -2,12 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentStudentFromDb, setLoading } from './../store';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 const SingleStudent = props => {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   useEffect(() => {
     const {
       params: { studentId },
@@ -27,13 +24,10 @@ const SingleStudent = props => {
       'None'
     );
     return <p>School: {link}</p>;
-    // ) : (
-    // <p>None</p>
-    // );
   };
 
   return props.isLoading ? (
-    <div uk-spinner="true" />
+    <Loading />
   ) : (
     <div className="uk-child-width-1-2">
       <img src={props.currentStudent.imageUrl} alt="student image" />

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { resetCurrentCampus, setLoading, getCampusesFromDb } from './../store';
 import DeleteButton from './DeleteButton';
 import { GRID, CARD } from './../styles';
+import Loading from './Loading';
 
 const AllCampuses = props => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const AllCampuses = props => {
     props.getCampusesFromDb();
   }, []);
   return props.isLoading ? (
-    <div uk-spinner="ratio:3" />
+    <Loading />
   ) : (
     <div className="uk-container-small">
       <ul className={GRID} uk-grid="true">

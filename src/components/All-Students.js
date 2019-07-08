@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import { resetCurrentStudent, setLoading, getStudentsFromDb } from './../store';
 import { GRID, CARD } from './../styles';
+import Loading from './Loading';
 const AllStudents = props => {
   useEffect(() => {
     props.resetStudent();
@@ -12,7 +13,7 @@ const AllStudents = props => {
   }, []);
 
   return props.isLoading ? (
-    <div uk-spinner="ratio:3" />
+    <Loading />
   ) : (
     <div className="uk-container-small">
       <ul className={GRID} uk-grid="true">
