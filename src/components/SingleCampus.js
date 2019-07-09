@@ -32,9 +32,11 @@ const SingleCampus = props => {
   return props.isLoading ? (
     <Loading />
   ) : (
-    <div>
+    <div className="single-item-container">
       <img src={props.currentCampus.imageUrl} alt="campus image" />
-      <p>Name: {props.currentCampus.name}</p>
+      <p>
+        <em>Name:</em> {props.currentCampus.name}
+      </p>
       <p>Address: {props.currentCampus.address}</p>
       <p>Description: {props.currentCampus.description}</p>
       <Link to="/campuses/update">Update Info</Link>

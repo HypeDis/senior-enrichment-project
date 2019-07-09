@@ -29,7 +29,7 @@ const SingleStudent = props => {
   return props.isLoading ? (
     <Loading />
   ) : (
-    <div className="uk-child-width-1-2">
+    <div className="single-item-container">
       <img src={props.currentStudent.imageUrl} alt="student image" />
       <p>Firstname: {props.currentStudent.firstName}</p>
       <p>Lastname: {props.currentStudent.lastName}</p>

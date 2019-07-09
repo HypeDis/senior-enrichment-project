@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { getStudentsFromDb, getCampusesFromDb } from './../store';
 
 import Navbar from './Navbar';
-import AllCampuses from './All-Campuses';
-import AllStudents from './All-Students';
+import AllCampuses from './AllCampuses';
+import AllStudents from './AllStudents';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
 import CampusForm from './CampusForm';
@@ -22,7 +22,7 @@ class Main extends Component {
   }
   render() {
     return (
-      <div className="uk-container">
+      <div className="uk-container-expand">
         <Navbar />
         <Switch>
           <Route exact path="/campuses" component={AllCampuses} />

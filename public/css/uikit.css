@@ -2848,7 +2848,7 @@ select.uk-form-width-xsmall {
 /* Sections
  ========================================================================== */
 .uk-card-body {
-  padding: 30px 30px;
+  padding: 10% 10%;
 }
 .uk-card-header {
   padding: 15px 30px;

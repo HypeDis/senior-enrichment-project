@@ -6,16 +6,50 @@ ul {
   background: rgb(160, 160, 160);
 }
 
-.card-info {
+.all-items-container {
+  text-align: center;
+}
+
+.scroll-container {
+  overflow: scroll;
+  scrollbar-width: none;
+  max-height: 75vh;
+  max-width: 90vw;
+  margin: auto;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+.card {
+  max-width: 20vw;
+  border-radius: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.card-details {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.card-details .caption {
+  max-width: 60%;
+}
 
+/* hide delete button until hovering over a card */
 .delete-btn-container button {
   display: none;
 }
-
 .uk-card:hover button {
   display: inline;
+}
+
+.single-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: 5%;
+}
+
+.single-item-container img {
+  max-width: 20%;
 }
