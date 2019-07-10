@@ -77,7 +77,7 @@ const CampusForm = props => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       {renderTitle()}
 
       <form onSubmit={handleSubmit}>

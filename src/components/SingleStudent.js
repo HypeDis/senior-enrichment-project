@@ -30,10 +30,18 @@ const SingleStudent = props => {
   ) : (
     <div className="single-item-container">
       <img src={props.currentStudent.imageUrl} alt="student image" />
-      <p>Firstname: {props.currentStudent.firstName}</p>
-      <p>Lastname: {props.currentStudent.lastName}</p>
-      <p>Email: {props.currentStudent.email}</p>
-      <p>GPA: {props.currentStudent.gpa}</p>
+      <p>
+        <strong>Firstname:</strong> {props.currentStudent.firstName}
+      </p>
+      <p>
+        <strong>Lastname:</strong> {props.currentStudent.lastName}
+      </p>
+      <p>
+        <strong>Email:</strong> {props.currentStudent.email}
+      </p>
+      <p>
+        <strong>GPA:</strong> {props.currentStudent.gpa}
+      </p>
       {renderCampusLink(props.currentStudent)}
       <Link to="/students/update">
         <button className="uk-button uk-button-default">Update Info</button>

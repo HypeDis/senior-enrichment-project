@@ -57,6 +57,7 @@ ul {
   flex-direction: column;
   align-items: start;
   margin-left: 5%;
+  max-width: 50vw;
 }
 
 .single-item-container img {
@@ -79,4 +80,8 @@ ul {
 
 .field {
   padding: 1em;
+}
+
+.form-container {
+  max-width: 50vw;
 }
