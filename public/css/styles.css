@@ -53,3 +53,17 @@ ul {
 .single-item-container img {
   max-width: 20%;
 }
+
+.error-container {
+  color: red;
+  font-size: small;
+  margin: 0;
+}
+
+.error-container p {
+  margin: 0;
+}
+
+.field {
+  padding: 1em;
+}

@@ -10,6 +10,7 @@ import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
 import CampusForm from './CampusForm';
 import StudentForm from './StudentForm';
+import NotFound from './NotFound';
 
 class Main extends Component {
   // constructor(props) {
@@ -24,16 +25,25 @@ class Main extends Component {
     return (
       <div className="uk-container-expand">
         <Navbar />
-        <Switch>
-          <Route exact path="/campuses" component={AllCampuses} />
-          <Route exact path="/students" component={AllStudents} />
-          <Route exact path="/campuses/new" component={CampusForm} />
-          <Route exact path="/campuses/update" component={CampusForm} />
-          <Route path="/students/new" component={StudentForm} />
-          <Route path="/campuses/:campusId" component={SingleCampus} />
-          <Route path="/students/:studentId" component={SingleStudent} />
-          <Redirect to="/campuses" />
-        </Switch>
+        <main>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => <Redirect to={'/campuses'} />}
+            />
+            <Route exact path="/campuses" component={AllCampuses} />
+            <Route exact path="/students" component={AllStudents} />
+            <Route exact path="/campuses/new" component={CampusForm} />
+            <Route exact path="/campuses/update" component={CampusForm} />
+            <Route exact path="/students/new" component={StudentForm} />
+            <Route exact path="/students/update" component={StudentForm} />
+            <Route path="/campuses/:campusId" component={SingleCampus} />
+            <Route path="/students/:studentId" component={SingleStudent} />
+            <Route path="/notfound" component={NotFound} />
+            <Redirect to="/notfound" />
+          </Switch>
+        </main>
       </div>
     );
   }

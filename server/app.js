@@ -5,10 +5,12 @@ const morgan = require('morgan');
 const app = express();
 const apiRoutes = require('./routes/api');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(morgan('combined'));
+app.use(express.json());
+//need this for postman
+app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, '..', 'node_modules')));
 const publicPath = path.join(__dirname, './..', 'public');
 app.use(express.static(publicPath));
 
@@ -18,19 +20,9 @@ app.use(express.static(path.join(publicPath, './js')));
 
 app.use('/api', apiRoutes);
 
-app.use('/campuses', (req, res) => {
-  console.log('rerouting');
-  res.sendFile(publicPath + '/index.html');
+app.get('/*', (req, res, next) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
 });
-
-app.use('*', (req, res) => {
-  console.log('rerouting');
-  res.sendFile(publicPath + '/index.html');
-});
-
-// app.get('/*', (req, res, next) => {
-//   res.sendFile('index.html');
-// });
 
 app.use((err, req, res, next) => {
   res.send(err);

@@ -1,46 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { useForm } from './../hooks';
 import { resetCurrentCampus, getCampusesFromDb } from './../store';
+import campusValidator from '../../validation/campusValidator';
+import renderInput from './renderInput';
+import { useValidation } from './../hooks';
 
 const CampusForm = props => {
+  const [errors, validateInputs] = useValidation(campusValidator);
+
   const isNewCampus = location => {
     const path = location.pathname;
     const isNew = path.includes('new');
     return isNew;
   };
 
-  const createCampus = () => {
-    const newCampus = {
-      name: values.name,
-      address: values.address,
-      description: values.description,
-    };
+  const createCampus = newCampusObj => {
     axios
-      .post('/api/campuses', newCampus)
+      .post('/api/campuses', newCampusObj)
       .then(response => {
-        console.log('campus form response', response.data);
+        console.log('new campuse response', response.data);
         if (response.data.error) {
           return;
         }
         props.getCampuses();
-        props.history.push('/');
+        props.history.push(`/campuses/${response.data.campus.id}`);
       })
       .catch(e => console.error('campusForm error', e));
   };
 
+  const updateCampus = (id, updateObj) => {
+    console.log('campus id', id);
+    axios
+      .put(`/api/campuses/${id}`, updateObj)
+      .then(response => {
+        if (response.error) {
+          return;
+        }
+        console.log('response', response.data);
+        props.getCampuses();
+        props.history.push(`/campuses/${id}`);
+      })
+      .catch(e => console.error('update campus error', e));
+  };
+
   const createOrUpdateCampus = () => {
+    const isValid = validateInputs(values);
+    console.log('campus is valid', isValid);
+
+    if (!isValid) {
+      console.log('canceling server connection');
+      return;
+    }
+
     if (isNewCampus(props.location)) {
-      createCampus();
+      console.log('creating new campus');
+      createCampus(values);
     } else {
-      // updateCampus();
+      console.log('updating campus');
+      updateCampus(props.currentCampus.id, values);
     }
   };
-  const { handleSubmit, handleChange, values, setValues } = useForm(
+
+  const { handleSubmit, handleChange, values } = useForm(
     createOrUpdateCampus,
     props.currentCampus
   );
+
   const renderTitle = () => {
     if (isNewCampus(props.location)) {
       return <h1>Add A Campus</h1>;
@@ -49,35 +76,14 @@ const CampusForm = props => {
     }
   };
 
-  useEffect(() => {
-    // grab initial values from store
-    setValues(props.currentCampus);
-  }, []);
-
-  const renderInput = (name, value) => {
-    return (
-      <div className="field">
-        <label>{name}</label>
-        <div>
-          <input
-            type="text"
-            value={values[value]}
-            name={value}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div>
       {renderTitle()}
 
       <form onSubmit={handleSubmit}>
-        {renderInput('Name', 'name')}
+        {renderInput('Name', 'name', handleChange, values, errors)}
 
-        {renderInput('Address', 'address')}
+        {renderInput('Address', 'address', handleChange, values, errors)}
 
         {/* make the text area collapsed on default */}
         <div className="field">
@@ -88,11 +94,14 @@ const CampusForm = props => {
               name="description"
               value={values.description}
               onChange={handleChange}
+              className="uk-textarea"
             />
           </div>
         </div>
         <div className="field">
-          <button type="submit">Submit</button>
+          <button className="uk-button" type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>

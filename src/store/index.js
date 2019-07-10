@@ -14,4 +14,6 @@ export * from './reducers/campusesReducer';
 export * from './reducers/currentCampusReducer';
 export * from './reducers/currentStudentReducer';
 export * from './reducers/loadingReducer';
+export * from './reducers/currentCampusErrorReducer';
+export * from './reducers/currentStudentErrorReducer';
 export default store;

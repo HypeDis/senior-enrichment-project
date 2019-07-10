@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { getCurrentCampusFromDb, setLoading } from './../store';
 import Loading from './Loading';
 
@@ -31,6 +31,8 @@ const SingleCampus = props => {
 
   return props.isLoading ? (
     <Loading />
+  ) : props.currentCampusError.error ? (
+    <Redirect to="/notfound" />
   ) : (
     <div className="single-item-container">
       <img src={props.currentCampus.imageUrl} alt="campus image" />
@@ -49,6 +51,7 @@ const SingleCampus = props => {
 const mapState = state => ({
   currentCampus: state.currentCampus,
   isLoading: state.isLoading,
+  currentCampusError: state.currentCampusError,
 });
 
 const mapDispatch = dispatch => ({

@@ -1,43 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { useForm } from './../hooks';
+import { useForm, useValidation } from './../hooks';
 import { resetCurrentStudent, getStudentsFromDb } from './../store';
+import renderInput from './renderInput';
+import studentValidator from '../../validation/studentValidator';
 
 const StudentForm = props => {
+  const [errors, validateInputs, setErrors] = useValidation(studentValidator);
+
   const isNewStudent = location => {
     const path = location.pathname;
     const isNew = path.includes('new');
     return isNew;
   };
 
-  const createStudent = () => {
-    // BUG: empty strings not triggering allownull
-    const newStudent = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      gpa: values.gpa,
-      campusId: values.campusId,
-    };
+  const createStudent = newStudentObj => {
     axios
-      .post('/api/students', newStudent)
+      .post('/api/students', newStudentObj)
       .then(response => {
         console.log('student form response', response.data);
+
+        // handling email validation on server only for now. need to add a client side email validator
         if (response.data.error) {
+          setErrors({ email: 'put in a valid email' });
           return;
         }
         props.getStudents();
-        props.history.push('/students');
+        props.history.push(`/students/${response.data.student.id}`);
       })
       .catch(e => console.error('studentForm error', e));
   };
 
+  const updateStudent = (id, updateObj) => {
+    axios.put(`/api/students/${id}`, updateObj).then(response => {
+      if (response.error) {
+        return;
+      }
+      props.getStudents();
+      props.history.push(`/students/${id}`);
+    });
+  };
+
   const createOrUpdateStudent = () => {
+    const isValid = validateInputs(values);
+
+    if (!isValid) {
+      console.log('cancelling db connection');
+      return;
+    }
+
     if (isNewStudent(props.location)) {
-      createStudent();
+      createStudent(values);
     } else {
-      // updateStudent();
+      updateStudent(props.currentStudent.id, values);
     }
   };
 
@@ -54,37 +70,21 @@ const StudentForm = props => {
     }
   };
 
-  useEffect(() => {
-    // grab initial values from store
-    setValues(props.currentStudent);
-  }, []);
-
-  const renderInput = (name, value) => {
-    return (
-      <div className="field">
-        <label>{name}</label>
-        <div>
-          <input
-            type="text"
-            value={values[value]}
-            name={value}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-    );
-  };
+  // useEffect(() => {
+  //   // grab initial values from store
+  //   setValues(props.currentStudent);
+  // }, []);
 
   return (
     <div>
       {renderTitle()}
 
       <form onSubmit={handleSubmit}>
-        {renderInput('First Name', 'firstName')}
+        {renderInput('First Name', 'firstName', handleChange, values, errors)}
 
-        {renderInput('Last Name', 'lastName')}
-        {renderInput('Email', 'email')}
-        {renderInput('GPA', 'gpa')}
+        {renderInput('Last Name', 'lastName', handleChange, values, errors)}
+        {renderInput('Email', 'email', handleChange, values, errors)}
+        {renderInput('GPA', 'gpa', handleChange, values, errors)}
         <div className="field">
           <label>Campus</label>
           <div className="student-select">

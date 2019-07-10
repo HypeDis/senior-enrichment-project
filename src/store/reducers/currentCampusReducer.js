@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoading } from './../index';
+import { setLoading, setCampusError } from './../index';
 
 // action constants
 const GOT_CURRENT_CAMPUS = 'GOT_CURRENT_CAMPUS';
@@ -23,12 +23,15 @@ export const getCurrentCampusFromDb = campusId => {
       .get(`/api/campuses/${campusId}`)
       .then(response => {
         const campus = response.data;
-        dispatch(gotCurrentCampus(campus));
         dispatch(setLoading(false));
+        if (campus.error) {
+          return Promise.reject(campus);
+        }
+        dispatch(gotCurrentCampus(campus));
       })
       .catch(e => {
         //write error handler later
-        console.error('getCurrentCampus error', e);
+        dispatch(setCampusError(e));
       });
   };
 };
@@ -38,7 +41,7 @@ const initialState = {
   name: '',
   address: '',
   description: '',
-  imageUrl: 'defaultCampus.jpg',
+  // imageUrl: '/img/defaultCampus.jpg',
   students: [],
 };
 

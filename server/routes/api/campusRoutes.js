@@ -19,9 +19,15 @@ router.get('/:campusId', (req, res, next) => {
   const campusId = req.params.campusId;
   Campus.findByPk(campusId, { include: [Student] })
     .then(campus => {
+      if (!campus) {
+        // const campusError = new Error('Campus is null');
+        return Promise.reject('Campus is null');
+      }
       res.send(campus);
     })
-    .catch(next);
+    .catch(e => {
+      next({ error: e });
+    });
 });
 
 // POST to /api/campuses
@@ -39,6 +45,8 @@ router.post('/', (req, res, next) => {
     });
 });
 
+// DELETE to /api/campuses/:campusId
+// delete a campus from db
 router.delete('/:campusId', (req, res, next) => {
   const id = req.params.campusId;
   Campus.destroy({ where: { id } })
@@ -53,6 +61,25 @@ router.delete('/:campusId', (req, res, next) => {
       res.send({ error: e });
       next(e);
     });
+});
+
+// PUT to /api/campuses/:campusId
+// update a user
+router.put('/:campusId', (req, res, next) => {
+  const id = req.params.campusId;
+  const campusObj = req.body;
+  if (!Object.keys(campusObj).length) {
+    return next({ error: 'empty fields' });
+  }
+  Campus.findByPk(id)
+    .then(campus => {
+      console.log('campus obj', campusObj);
+      return campus.update(campusObj);
+    })
+    .then(resp => {
+      res.send({ message: 'campus updated successfully' });
+    })
+    .catch(next);
 });
 
 module.exports = router;

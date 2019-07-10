@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentStudentFromDb, setLoading } from './../store';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Loading from './Loading';
 
 const SingleStudent = props => {
@@ -16,10 +16,7 @@ const SingleStudent = props => {
   const renderCampusLink = student => {
     // return student.campus ? (
     const link = student.campus ? (
-      <Link to={`/campuses/${student.campus.id}`}>
-        {' '}
-        {student.campus ? student.campus.name : 'None'}
-      </Link>
+      <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link>
     ) : (
       'None'
     );
@@ -28,6 +25,8 @@ const SingleStudent = props => {
 
   return props.isLoading ? (
     <Loading />
+  ) : props.currentStudentError.error ? (
+    <Redirect to="/notfound" />
   ) : (
     <div className="single-item-container">
       <img src={props.currentStudent.imageUrl} alt="student image" />
@@ -36,6 +35,7 @@ const SingleStudent = props => {
       <p>Email: {props.currentStudent.email}</p>
       <p>GPA: {props.currentStudent.gpa}</p>
       {renderCampusLink(props.currentStudent)}
+      <Link to="/students/update">Update Info</Link>
     </div>
   );
 };
@@ -43,6 +43,7 @@ const SingleStudent = props => {
 const mapState = state => ({
   currentStudent: state.currentStudent,
   isLoading: state.isLoading,
+  currentStudentError: state.currentStudentError,
 });
 
 const mapDispatch = dispatch => ({
