@@ -7,7 +7,8 @@ const campuses = require('./../mock-data/campuses.json');
 
 const imageDir = path.join(__dirname, '..', 'public/img/campuses');
 
-// fisher-yates algo
+// fisher-yates algo from
+// https://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
   var m = array.length,
     t,

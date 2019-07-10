@@ -62,6 +62,10 @@ ul {
 .single-item-container img {
   max-width: 20%;
 }
+.single-item-container ul {
+  margin: 0;
+  padding: 0;
+}
 
 .error-container {
   color: red;

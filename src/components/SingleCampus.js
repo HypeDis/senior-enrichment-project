@@ -37,12 +37,21 @@ const SingleCampus = props => {
     <div className="single-item-container">
       <img src={props.currentCampus.imageUrl} alt="campus image" />
       <p>
-        <em>Name:</em> {props.currentCampus.name}
+        <strong>Name:</strong> {props.currentCampus.name}
       </p>
-      <p>Address: {props.currentCampus.address}</p>
-      <p>Description: {props.currentCampus.description}</p>
-      <Link to="/campuses/update">Update Info</Link>
-      <h3>Students:</h3>
+      <p>
+        <strong>Address:</strong> {props.currentCampus.address}
+      </p>
+      <p>
+        <strong>Description: </strong> {props.currentCampus.description}
+      </p>
+
+      <Link to="/campuses/update">
+        <button className="uk-button uk-button-default">Update Info</button>
+      </Link>
+      <p style={{ marginBotton: '0' }}>
+        <strong>Students:</strong>
+      </p>
       {renderStudents(props.currentCampus.students)}
     </div>
   );

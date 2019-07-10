@@ -35,7 +35,9 @@ const SingleStudent = props => {
       <p>Email: {props.currentStudent.email}</p>
       <p>GPA: {props.currentStudent.gpa}</p>
       {renderCampusLink(props.currentStudent)}
-      <Link to="/students/update">Update Info</Link>
+      <Link to="/students/update">
+        <button className="uk-button uk-button-default">Update Info</button>
+      </Link>
     </div>
   );
 };
