@@ -10,13 +10,9 @@ app.use(express.json());
 //need this for postman
 app.use(express.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, '..', 'node_modules')));
+// app.use(express.static(path.join(__dirname, '..', 'node_modules')));
 const publicPath = path.join(__dirname, './..', 'public');
 app.use(express.static(publicPath));
-
-app.use(express.static(path.join(publicPath, './img')));
-app.use(express.static(path.join(publicPath, './css')));
-app.use(express.static(path.join(publicPath, './js')));
 
 app.use('/api', apiRoutes);
 

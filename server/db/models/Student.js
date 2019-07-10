@@ -12,7 +12,7 @@ const Student = db.define('student', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'http://lorempixel.com/1000/1000/',
+    defaultValue: '/img/default-avatar.jpg',
   },
   email: {
     type: Sequelize.STRING,

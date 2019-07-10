@@ -12,19 +12,28 @@ ul {
 
 .scroll-container {
   overflow: scroll;
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
+  overflow-x: hidden;
   max-height: 75vh;
   max-width: 90vw;
   margin: auto;
 }
-.scroll-container::-webkit-scrollbar {
+/* .scroll-container::-webkit-scrollbar {
   display: none;
-}
+} */
+/* .scroll-container::-webkit-scrollbar:hover {
+  display: none;
+} */
 .card {
   max-width: 20vw;
   border-radius: 10%;
   margin-top: 5%;
   margin-bottom: 5%;
+}
+
+.card img {
+  max-width: 50px;
+  max-height: 50px;
 }
 .card-details {
   display: flex;

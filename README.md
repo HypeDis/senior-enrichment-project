@@ -142,7 +142,7 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
 #### Backend
 
 - [x] Write a route to update an existing campus
-- [ ] Write a route to update an existing student
+- [x] Write a route to update an existing student
 
 #### Frontend
 
@@ -153,10 +153,10 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
   - [x] Make an AJAX request that causes that campus to be updated in the database
   - [x] Update the campus in the current view without needing to refresh the page
 
-- [ ] Write a component to display a form updating _at least_ a student's first and last names, and email
-- [ ] Display this component as part of the single-student view
+- [x] Write a component to display a form updating _at least_ a student's first and last names, and email
+- [x] Display this component as part of the single-student view
 - Submitting the form with a valid name/address should:
-  - [ ] Make an AJAX request that causes that student to be updated in the database
-  - [ ] Update the student in the current view without needing to refresh the page
+  - [x] Make an AJAX request that causes that student to be updated in the database
+  - [x] Update the student in the current view without needing to refresh the page
 
 </details>
