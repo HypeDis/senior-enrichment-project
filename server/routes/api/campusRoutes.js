@@ -6,7 +6,7 @@ const { Campus, Student } = require('./../../db');
 // GET to /api/campuses
 // get all campuses
 router.get('/', (req, res, next) => {
-  Campus.findAll()
+  Campus.findAll({ order: [['name', 'asc']] })
     .then(campuses => {
       res.send(campuses);
     })
