@@ -36,7 +36,7 @@
     "build-watch": "webpack -w",
     "build": "webpack",
     "start-dev": "npm run build-watch & npm run start-server",
-    "seed": "node syncAndSeed.js"
+    "seed": "node ./seed/syncAndSeed.js"
   },
   "author": "",
   "license": "ISC"
