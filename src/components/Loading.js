@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Loading = () => {
-  return <div uk-spinner="ratio:3" />;
+  return <div className="uk-position-center" uk-spinner="ratio:10" />;
 };
 
 export default Loading;
