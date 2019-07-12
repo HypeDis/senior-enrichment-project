@@ -14,6 +14,8 @@ const AllCampuses = props => {
       props.getCampusesFromDb();
     }
   }, []);
+
+  // DRY out allCampuses and allStudents
   return props.isLoading ? (
     <Loading />
   ) : (
@@ -25,14 +27,16 @@ const AllCampuses = props => {
               <Link to={`/campuses/${campus.id}`} className="uk-thumbnail">
                 <div className={CARD}>
                   <div className="card-details">
-                    <img
-                      src={campus.imageUrl}
-                      className="card-img"
-                      alt="campus image"
-                      onError={() => {
-                        console.log('image error');
-                      }}
-                    />
+                    <div className="card-img-container">
+                      <img
+                        src={campus.imageUrl}
+                        className="card-img"
+                        alt="campus image"
+                        onError={() => {
+                          console.log('image error');
+                        }}
+                      />
+                    </div>
                     <div className="caption">{campus.name}</div>
                   </div>
 
@@ -46,7 +50,7 @@ const AllCampuses = props => {
 
       <div>
         <Link to="/campuses/new">
-          <button className="uk-button">Add Campus</button>
+          <button className="uk-button uk-button-primary">Add Campus</button>
         </Link>
       </div>
     </div>

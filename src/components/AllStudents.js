@@ -25,7 +25,13 @@ const AllStudents = props => {
               <Link to={`/students/${student.id}`} className="uk-thumbnail">
                 <div className={CARD}>
                   <div className="card-details">
-                    <img src={student.imageUrl} alt="student image" />
+                    <div className="card-img-container">
+                      <img
+                        src={student.imageUrl}
+                        className="card-img"
+                        alt="student image"
+                      />
+                    </div>
                     <div className="caption">{`${student.firstName} ${
                       student.lastName
                     }`}</div>
@@ -40,7 +46,7 @@ const AllStudents = props => {
         </ul>
       </div>
 
-      <button className="uk-button">
+      <button className="uk-button uk-button-primary">
         <Link to="/students/new">Add Student </Link>
       </button>
     </div>
