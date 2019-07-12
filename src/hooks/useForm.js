@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const useForm = (callback, initialState = {}) => {
   const [values, setValues] = useState(initialState);
+  const hookCallback = callback.bind(null, values);
 
   const handleChange = evt => {
     evt.persist();
@@ -12,7 +13,7 @@ const useForm = (callback, initialState = {}) => {
     if (evt) {
       evt.preventDefault();
     }
-    callback();
+    hookCallback();
   };
 
   return {

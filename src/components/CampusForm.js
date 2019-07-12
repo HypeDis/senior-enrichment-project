@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { useForm } from './../hooks';
+
 import { resetCurrentCampus, getCampusesFromDb } from './../store';
 import campusValidator from '../../validation/campusValidator';
-import renderInput from './renderInput';
-import { useValidation } from './../hooks';
+import Form from './Form';
 
 const CampusForm = props => {
-  const [errors, validateInputs] = useValidation(campusValidator);
-
-  const isNewCampus = location => {
-    const path = location.pathname;
-    const isNew = path.includes('new');
-    return isNew;
-  };
+  const campusInputs = [
+    { type: 'title', name: 'Campus' },
+    { type: 'input', name: 'Name', value: 'name' },
+    { type: 'input', name: 'Address', value: 'address' },
+    { type: 'textArea', name: 'Description', value: 'description' },
+  ];
 
   const createCampus = newCampusObj => {
     axios
@@ -45,66 +43,36 @@ const CampusForm = props => {
       .catch(e => console.error('update campus error', e));
   };
 
-  const createOrUpdateCampus = () => {
+  const createOrUpdateCampus = (
+    validateInputs,
+    id = null,
+    isNew,
+    setErrors,
+    values
+  ) => {
     const isValid = validateInputs(values);
-    console.log('campus is valid', isValid);
 
     if (!isValid) {
-      console.log('canceling server connection');
+      console.log('invalid inputs, canceling query');
       return;
     }
 
-    if (isNewCampus(props.location)) {
+    if (isNew) {
       console.log('creating new campus');
       createCampus(values);
     } else {
       console.log('updating campus');
-      updateCampus(props.currentCampus.id, values);
-    }
-  };
-
-  const { handleSubmit, handleChange, values } = useForm(
-    createOrUpdateCampus,
-    props.currentCampus
-  );
-
-  const renderTitle = () => {
-    if (isNewCampus(props.location)) {
-      return <h1>Add A Campus</h1>;
-    } else {
-      return <h1>Update Campus</h1>;
+      updateCampus(id, values);
     }
   };
 
   return (
-    <div className="form-container">
-      {renderTitle()}
-
-      <form onSubmit={handleSubmit}>
-        {renderInput('Name', 'name', handleChange, values, errors)}
-
-        {renderInput('Address', 'address', handleChange, values, errors)}
-
-        {/* make the text area collapsed on default */}
-        <div className="field">
-          <label>Description</label>
-          <div>
-            <textarea
-              type="text"
-              name="description"
-              value={values.description}
-              onChange={handleChange}
-              className="uk-textarea"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <button className="uk-button" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <Form
+      inputs={campusInputs}
+      validator={campusValidator}
+      createOrUpdate={createOrUpdateCampus}
+      currentInfo={props.currentCampus}
+    />
   );
 };
 

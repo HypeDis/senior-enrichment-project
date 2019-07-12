@@ -9,7 +9,6 @@ const useValidation = validator => {
     setErrors(errorsObj);
     return isValid;
   };
-  return [errors, validateInputs, setErrors];
+  return { errors, validateInputs, setErrors };
 };
-
 export default useValidation;

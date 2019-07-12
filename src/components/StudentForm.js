@@ -5,36 +5,45 @@ import { useForm, useValidation } from './../hooks';
 import { resetCurrentStudent, getStudentsFromDb } from './../store';
 import renderInput from './renderInput';
 import studentValidator from '../../validation/studentValidator';
-
+import Form from './Form';
 const StudentForm = props => {
-  const [errors, validateInputs, setErrors] = useValidation(studentValidator);
+  const inputs = [
+    { type: 'title', name: 'Student' },
+    { type: 'input', name: 'First Name', value: 'firstName' },
+    { type: 'input', name: 'Last Name', value: 'lastName' },
+    { type: 'input', name: 'Email', value: 'email' },
+    { type: 'input', name: 'GPA', value: 'gpa' },
+    {
+      type: 'select',
+      name: 'Campus',
+      value: 'campusId',
+      selections: props.campuses,
+      optionKey: 'name',
+    },
+  ];
 
-  const isNewStudent = location => {
-    const path = location.pathname;
-    const isNew = path.includes('new');
-    return isNew;
-  };
-
-  const createStudent = newStudentObj => {
+  const createStudent = (newStudentObj, setErrors) => {
     axios
       .post('/api/students', newStudentObj)
       .then(response => {
         console.log('student form response', response.data);
 
         // handling email validation on server only for now. need to add a client side email validator
-        if (response.data.error) {
+        if (response.data.errors) {
           setErrors({ email: 'put in a valid email' });
           return;
         }
         props.getStudents();
-        props.history.push(`/students/${response.data.student.id}`);
+        props.history.push(`/students/${response.data.id}`);
       })
       .catch(e => console.error('studentForm error', e));
   };
 
-  const updateStudent = (id, updateObj) => {
+  const updateStudent = (id, updateObj, setErrors) => {
     axios.put(`/api/students/${id}`, updateObj).then(response => {
-      if (response.error) {
+      console.log('student update response', response.data);
+      if (response.data.errors) {
+        setErrors({ email: 'put in a valid email' });
         return;
       }
       props.getStudents();
@@ -42,71 +51,34 @@ const StudentForm = props => {
     });
   };
 
-  const createOrUpdateStudent = () => {
+  const createOrUpdateStudent = (
+    validateInputs,
+    id = null,
+    isNew,
+    setErrors,
+    values
+  ) => {
     const isValid = validateInputs(values);
 
     if (!isValid) {
-      console.log('cancelling db connection');
+      console.log('invalid inputs, canceling query');
       return;
     }
 
-    if (isNewStudent(props.location)) {
-      createStudent(values);
+    if (isNew) {
+      createStudent(values, setErrors);
     } else {
-      updateStudent(props.currentStudent.id, values);
+      updateStudent(id, values, setErrors);
     }
   };
-
-  const { handleSubmit, handleChange, values, setValues } = useForm(
-    createOrUpdateStudent,
-    props.currentStudent
-  );
-
-  const renderTitle = () => {
-    if (isNewStudent(props.location)) {
-      return <h1>Add A Student</h1>;
-    } else {
-      return <h1>Update Student</h1>;
-    }
-  };
-
-  // useEffect(() => {
-  //   // grab initial values from store
-  //   setValues(props.currentStudent);
-  // }, []);
 
   return (
-    <div className="form-container">
-      {renderTitle()}
-
-      <form onSubmit={handleSubmit}>
-        {renderInput('First Name', 'firstName', handleChange, values, errors)}
-
-        {renderInput('Last Name', 'lastName', handleChange, values, errors)}
-        {renderInput('Email', 'email', handleChange, values, errors)}
-        {renderInput('GPA', 'gpa', handleChange, values, errors)}
-        <div className="field">
-          <label>Campus</label>
-          <div className="student-select">
-            <select
-              name="campusId"
-              value={values.campusId}
-              onChange={handleChange}
-            >
-              <option value="">--None--</option>
-              {props.campuses.map(campus => (
-                <option key={campus.id} value={campus.id}>
-                  {campus.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="field">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+    <Form
+      inputs={inputs}
+      validator={studentValidator}
+      createOrUpdate={createOrUpdateStudent}
+      currentInfo={props.currentStudent}
+    />
   );
 };
 
