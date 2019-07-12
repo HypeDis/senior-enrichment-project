@@ -6,7 +6,6 @@ import { getCampusesFromDb, getStudentsFromDb } from './../store';
 const DeleteButton = props => {
   const id = props.id;
   const path = props.location.pathname.slice(1).trim();
-  console.log(path);
 
   const deleteItem = () => {
     axios
@@ -30,6 +29,7 @@ const DeleteButton = props => {
     <div className="delete-btn-container">
       <form
         onSubmit={e => {
+          // prevents any event handlers from parent elements from triggering
           e.stopPropagation();
           e.preventDefault();
           deleteItem();
@@ -54,6 +54,7 @@ const mapDispatch = dispatch => ({
     dispatch(getStudentsFromDb());
   },
 });
+
 export default connect(
   null,
   mapDispatch
