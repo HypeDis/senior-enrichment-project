@@ -46,9 +46,9 @@ const AllStudents = props => {
         </ul>
       </div>
 
-      <button className="uk-button uk-button-primary">
-        <Link to="/students/new">Add Student </Link>
-      </button>
+      <Link to="/students/new">
+        <button className="uk-button uk-button-primary">Add Student</button>
+      </Link>
     </div>
   );
 };
