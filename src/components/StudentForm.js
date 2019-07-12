@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { useForm, useValidation } from './../hooks';
 import { resetCurrentStudent, getStudentsFromDb } from './../store';
-import renderInput from './renderInput';
 import studentValidator from '../../validation/studentValidator';
 import Form from './Form';
+import checkNew from './../utils/checkNew';
 const StudentForm = props => {
   const inputs = [
     { type: 'title', name: 'Student' },
@@ -22,11 +21,19 @@ const StudentForm = props => {
     },
   ];
 
+  useEffect(() => {
+    if (checkNew(props.location)) {
+      props.resetStudent();
+      console.log('reset current student');
+    }
+  }, []);
+
   const createStudent = (newStudentObj, setErrors) => {
     axios
       .post('/api/students', newStudentObj)
       .then(response => {
-        console.log('student form response', response.data);
+        console.log('/new student form response', response.data);
+        console.log('newStudentObj', newStudentObj);
 
         // handling email validation on server only for now. need to add a client side email validator
         if (response.data.errors) {
@@ -34,7 +41,7 @@ const StudentForm = props => {
           return;
         }
         props.getStudents();
-        props.history.push(`/students/${response.data.id}`);
+        props.history.push(`/students/${response.data.student.id}`);
       })
       .catch(e => console.error('studentForm error', e));
   };

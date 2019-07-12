@@ -31,6 +31,9 @@ router.get('/:studentId', (req, res, next) => {
 // POST to /api/students
 router.post('/', (req, res, next) => {
   const newStudent = req.body;
+  if (!newStudent.gpa) {
+    newStudent.gpa = null;
+  }
   Student.create(newStudent)
     .then(student => res.send({ message: 'success', student }))
     .catch(next);

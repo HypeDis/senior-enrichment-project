@@ -7,7 +7,7 @@ const NotFound = () => {
       style={{ maxHeight: '25vh', maxWidth: '25vw' }}
     >
       <div className="uk-inline">
-        <img src="not-found.jpg" alt="not-found image" />
+        <img src="/img/not-found.jpg" alt="not-found image" />
         <div
           className="uk-overlay uk-overlay-primary uk-position-bottom"
           style={{ textAlign: 'center' }}

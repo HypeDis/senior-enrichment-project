@@ -18,8 +18,8 @@ class Main extends Component {
   // }
   componentDidMount() {
     // this.props.setLoading(true);
-    // this.props.getCampuses();
-    // this.props.getStudents();
+    this.props.getCampuses();
+    this.props.getStudents();
   }
   render() {
     return (

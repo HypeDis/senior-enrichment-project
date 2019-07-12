@@ -6,7 +6,7 @@ import rootReducer from './reducers/rootReducer';
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunkMiddleware, logger)
+  applyMiddleware(thunkMiddleware /* logger */)
 );
 
 export * from './reducers/studentsReducer';
