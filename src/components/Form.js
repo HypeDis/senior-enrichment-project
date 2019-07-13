@@ -21,19 +21,22 @@ const Form = props => {
 
   // [values] is required in formCreateOrUpdate
   // but defined in the useForm hook
-  const formCreateOrUpdate = createOrUpdate.bind(
-    null,
-    validateInputs,
-    currentInfo.id,
-    isNew,
-    setErrors
-    // values
-  );
+  // const formCreateOrUpdate = createOrUpdate.bind(
+  //   null,
+  //   validateInputs,
+  //   currentInfo.id,
+  //   isNew,
+  //   setErrors
+  //   // values
+  // );
 
   // the useForm hook binds [values] to formCreateOrUpdate internally
   const { handleSubmit, handleChange, values } = useForm(
-    formCreateOrUpdate,
-    currentInfo
+    createOrUpdate,
+    currentInfo,
+    validateInputs,
+    isNew,
+    setErrors
   );
 
   return (

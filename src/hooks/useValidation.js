@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const useValidation = validator => {
+  // error state/validation hook
   const [errors, setErrors] = useState({});
 
   const validateInputs = inputs => {

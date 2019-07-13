@@ -24,7 +24,6 @@ const StudentForm = props => {
   useEffect(() => {
     if (checkNew(props.location)) {
       props.resetStudent();
-      console.log('reset current student');
     }
   }, []);
 
@@ -32,9 +31,6 @@ const StudentForm = props => {
     axios
       .post('/api/students', newStudentObj)
       .then(response => {
-        console.log('/new student form response', response.data);
-        console.log('newStudentObj', newStudentObj);
-
         // handling email validation on server only for now. need to add a client side email validator
         if (response.data.errors) {
           setErrors({ email: 'put in a valid email' });
@@ -48,7 +44,6 @@ const StudentForm = props => {
 
   const updateStudent = (id, updateObj, setErrors) => {
     axios.put(`/api/students/${id}`, updateObj).then(response => {
-      console.log('student update response', response.data);
       if (response.data.errors) {
         setErrors({ email: 'put in a valid email' });
         return;
@@ -60,10 +55,10 @@ const StudentForm = props => {
 
   const createOrUpdateStudent = (
     validateInputs,
-    id = null,
+    values,
     isNew,
-    setErrors,
-    values
+    id,
+    setErrors
   ) => {
     const isValid = validateInputs(values);
 

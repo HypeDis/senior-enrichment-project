@@ -13,11 +13,8 @@ import StudentForm from './StudentForm';
 import NotFound from './NotFound';
 
 class Main extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  // initial loading of data anytime app is (re)started.
   componentDidMount() {
-    // this.props.setLoading(true);
     this.props.getCampuses();
     this.props.getStudents();
   }

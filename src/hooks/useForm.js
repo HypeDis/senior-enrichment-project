@@ -1,19 +1,20 @@
 import { useState } from 'react';
 
-const useForm = (callback, initialState = {}) => {
+const useForm = (callback, initialState = {}, validate, isNew, setErrors) => {
+  // reusable state and handle sumbit/change for form inputs
   const [values, setValues] = useState(initialState);
-  const hookCallback = callback.bind(null, values);
 
   const handleChange = evt => {
     evt.persist();
-    setValues(values => ({ ...values, [evt.target.name]: evt.target.value }));
+    setValues(vals => ({ ...vals, [evt.target.name]: evt.target.value }));
   };
 
   const handleSubmit = evt => {
     if (evt) {
       evt.preventDefault();
     }
-    hookCallback();
+    const id = initialState.id;
+    callback(validate, values, isNew, id, setErrors);
   };
 
   return {

@@ -7,6 +7,8 @@ import campusValidator from '../../validation/campusValidator';
 import Form from './Form';
 
 const CampusForm = props => {
+  // [campusInputs] is used as a template to create the input elements in <Form />
+  // chose an array of objects so that I could keep everything in order.
   const campusInputs = [
     { type: 'title', name: 'Campus' },
     { type: 'input', name: 'Name', value: 'name' },
@@ -43,13 +45,8 @@ const CampusForm = props => {
       .catch(e => console.error('update campus error', e));
   };
 
-  const createOrUpdateCampus = (
-    validateInputs,
-    id = null,
-    isNew,
-    setErrors,
-    values
-  ) => {
+  // called when handleSubmit is called (in <Form />).
+  const createOrUpdateCampus = (validateInputs, values, isNew, id) => {
     const isValid = validateInputs(values);
 
     if (!isValid) {
